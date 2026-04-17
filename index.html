@@ -205,7 +205,7 @@
             const frame = document.createElement('div');
             frame.className = 'photo-frame';
             const img = document.createElement('img');
-            img.src = i + '.JPg'; 
+            img.src = './' + i + '.JPg';
             img.onerror = function() { this.parentElement.style.display = 'none'; };
             frame.appendChild(img);
             gallery.appendChild(frame);
