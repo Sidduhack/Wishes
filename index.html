@@ -3,128 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Countdown for Depika</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;600&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <title>For Depika</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Orbitron:wght@600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #080c14;
+            --bg: #0b0f1a;
+            --card-bg: #161b2a;
             --gold: #d4af37;
-            --glass: rgba(255, 255, 255, 0.05);
+            --text-muted: #808696;
         }
 
         body {
             margin: 0;
-            background-color: var(--bg-deep);
-            font-family: 'Poppins', sans-serif;
-            color: white;
+            background-color: var(--bg);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: white;
             overflow: hidden;
         }
 
-        /* --- Celestial Background --- */
-        #starfield {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-        }
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: twinkle 2s infinite alternate;
-        }
-        @keyframes twinkle { to { opacity: 1; transform: scale(1.2); } }
+        /* --- Background Stars --- */
+        #starfield { position: fixed; inset: 0; z-index: -1; }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; }
 
-        /* --- Countdown Card --- */
+        /* --- The Main Card --- */
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            padding: 3rem 2rem;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: var(--card-bg);
+            padding: 3.5rem 2rem;
+            border-radius: 60px; /* Matching the deep round corners */
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            width: 85%;
-            max-width: 450px;
-            animation: slideUp 1s ease-out;
+            width: 88%;
+            max-width: 400px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .name-header {
+        .name {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            letter-spacing: 5px;
+            font-size: 3.2rem;
+            letter-spacing: 12px;
+            color: #f2e1ac;
             margin: 0;
-            background: linear-gradient(to bottom, #fff, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .label {
-            color: var(--gold);
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.8rem;
-            margin-bottom: 20px;
-            display: block;
         }
 
-        /* --- The Timer Layout --- */
-        .timer-container {
+        .subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        /* --- Timer Styling (Matching the screenshot) --- */
+        .timer-row {
             display: flex;
-            justify-content: space-between;
-            margin: 30px 0;
+            justify-content: space-around;
+            margin: 50px 0;
         }
 
         .timer-box {
-            flex: 1;
+            text-align: center;
         }
 
         .time-val {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
+            font-size: 2.8rem;
             display: block;
             color: #fff;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            /* The subtle glow from the screenshot */
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
         .time-label {
-            font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.65rem;
+            color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            display: block;
         }
 
-        /* --- Surprise Button (Hidden until midnight) --- */
+        .footer-msg {
+            font-style: italic;
+            color: #4a5162;
+            font-size: 0.95rem;
+            margin-top: 30px;
+        }
+
+        /* --- The Secret Button (Appears at midnight) --- */
         #reveal-btn {
             display: none;
             background: var(--gold);
             color: #000;
             border: none;
-            padding: 15px 40px;
+            padding: 16px 40px;
             border-radius: 50px;
-            font-weight: bold;
-            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
-            animation: pulse 1.5s infinite;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            margin-top: 20px;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .waiting-msg {
-            font-size: 0.9rem;
-            font-style: italic;
-            color: rgba(255,255,255,0.4);
-        }
+        /* Transitions */
+        .page-section { transition: 0.8s ease-in-out; position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; visibility: hidden; }
+        .active { visibility: visible; }
+        #wish-section, #memory-section { transform: translateY(100%); }
 
     </style>
 </head>
@@ -132,83 +120,71 @@
 
     <div id="starfield"></div>
 
-    <div class="card">
-        <h1 class="name-header">DEPIKA</h1>
-        <span class="label">Special Moment In:</span>
+    <div id="countdown-section" class="page-section active">
+        <div class="card">
+            <h1 class="name">DEPIKA</h1>
+            <div class="subtitle">SPECIAL MOMENT IN:</div>
 
-        <div class="timer-container">
-            <div class="timer-box">
-                <span id="hours" class="time-val">00</span>
-                <span class="time-label">Hours</span>
+            <div class="timer-row">
+                <div class="timer-box">
+                    <span id="h" class="time-val">00</span>
+                    <span class="time-label">HOURS</span>
+                </div>
+                <div class="timer-box">
+                    <span id="m" class="time-val">00</span>
+                    <span class="time-label">MINS</span>
+                </div>
+                <div class="timer-box">
+                    <span id="s" class="time-val">00</span>
+                    <span class="time-label">SECS</span>
+                </div>
             </div>
-            <div class="timer-box">
-                <span id="minutes" class="time-val">00</span>
-                <span class="time-label">Mins</span>
-            </div>
-            <div class="timer-box">
-                <span id="seconds" class="time-val">00</span>
-                <span class="time-label">Secs</span>
-            </div>
-        </div>
 
-        <div id="status-area">
-            <p class="waiting-msg" id="wait-text">Preparation in progress...</p>
-            <button id="reveal-btn" onclick="startSurprise()">UNLOCK SURPRISE ✨</button>
+            <p id="wait-msg" class="footer-msg">Preparation in progress...</p>
+            <button id="reveal-btn" onclick="openGift()">UNLOCK SURPRISE ✨</button>
         </div>
     </div>
 
     <script>
-        // 1. Create the Stars
-        const starfield = document.getElementById('starfield');
-        for (let i = 0; i < 80; i++) {
+        // Stars
+        const stars = document.getElementById('starfield');
+        for(let i=0; i<60; i++){
             let s = document.createElement('div');
             s.className = 'star';
             s.style.width = s.style.height = Math.random() * 2 + 'px';
             s.style.left = Math.random() * 100 + 'vw';
             s.style.top = Math.random() * 100 + 'vh';
-            s.style.animationDelay = Math.random() * 2 + 's';
-            starfield.appendChild(s);
+            stars.appendChild(s);
         }
 
-        // 2. Countdown Logic
-        function updateTimer() {
-            const now = new Date();
-            
-            // Set target to today at 11:59:59 PM (essentially 12:00 AM)
-            const midnight = new Date();
-            midnight.setHours(24, 0, 0, 0); 
+        // Logic
+        function update() {
+            if (localStorage.getItem('unlocked') === 'true') {
+                // You can add a redirect or state change here if already unlocked
+            }
 
-            const diff = midnight - now;
+            const now = new Date();
+            const target = new Date();
+            target.setHours(24, 0, 0, 0); 
+            const diff = target - now;
 
             if (diff <= 0) {
-                // Time is up!
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('minutes').innerText = "00";
-                document.getElementById('seconds').innerText = "00";
-                
-                document.getElementById('wait-text').style.display = 'none';
+                document.getElementById('wait-msg').style.display = 'none';
                 document.getElementById('reveal-btn').style.display = 'inline-block';
                 return;
             }
 
-            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const m = Math.floor((diff / (1000 * 60)) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-
-            document.getElementById('hours').innerText = h < 10 ? "0" + h : h;
-            document.getElementById('minutes').innerText = m < 10 ? "0" + m : m;
-            document.getElementById('seconds').innerText = s < 10 ? "0" + s : s;
+            document.getElementById('h').innerText = Math.floor((diff/36e5)%24).toString().padStart(2,'0');
+            document.getElementById('m').innerText = Math.floor((diff/6e4)%60).toString().padStart(2,'0');
+            document.getElementById('s').innerText = Math.floor((diff/1e3)%60).toString().padStart(2,'0');
         }
+        setInterval(update, 1000);
+        update();
 
-        // Update every second
-        setInterval(updateTimer, 1000);
-        updateTimer();
-
-        function startSurprise() {
-            // This is where you link to the surprise page or 
-            // trigger the previous animations we built!
-            alert("Happy Birthday Depika! The magic begins now.");
-            // location.href = 'surprise.html'; 
+        function openGift() {
+            localStorage.setItem('unlocked', 'true');
+            // Trigger your animations and show the wish/memories
+            alert("Happy Birthday Depika!");
         }
     </script>
 </body>
